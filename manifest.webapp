@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "name": "base-game",
+  "description": "Base Game boilerplate on Cocos-2dX-JS",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/res/icon.png"
+  },
+  "developer": {
+    "name": "AkatQuas",
+    "url": "295140755@qq.com"
+  },
+  "default_locale": "en",
+  "installs_allowed_from": [
+    "*"
+  ],
+  "orientation": "portrait-primary",
+  "fullscreen": "true"
+}

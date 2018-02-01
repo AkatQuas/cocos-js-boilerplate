@@ -1,0 +1,5 @@
+#! /bin/sh
+
+echo sync file to $1
+
+rsync -av --exclude-from './sync-exclude' ./ $1
