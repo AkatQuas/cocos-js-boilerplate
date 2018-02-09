@@ -1,0 +1,3 @@
+[submodule "example/js-tests"]
+        path = example/js-tests
+        url = git@github.com:cocos2d/cocos2d-js-tests.git

@@ -1,7 +1,13 @@
 .git/
 .idea/
 .vscode/
+test/
+snippets
+frameworks
+example
+
 sync*
 README*
 .DS_Store
 .eslint
+.gitmodules

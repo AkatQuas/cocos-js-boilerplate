@@ -1,49 +1,63 @@
+var MyLoaderScene = cc.Scene.extend({
+    _interval : null,
+    _className:"MyLoaderScene",
+    cb: null,
+    target: null,
+    /**
+     * Contructor of MyLoaderScene
+     * @returns {boolean}
+     */
+    init : function(){
+        var self = this;
 
-var HelloWorldLayer = cc.Layer.extend({
-    sprite:null,
-    ctor:function () {
-        //////////////////////////////
-        // 1. super init first
-        this._super();
-
-        /////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask the window size
-        var size = cc.winSize;
-
-        /////////////////////////////
-        // 3. add your codes below...
-        // add a label shows "Hello World"
-        // create and initialize a label
-        var helloLabel = new cc.LabelTTF("Hello World", "Arial", 38);
-        // position the label on the center of the screen
-        helloLabel.x = size.width / 2;
-        helloLabel.y = size.height / 2 + 200;
-        // add the label as a child to this layer
-        this.addChild(helloLabel, 5);
-        var move = cc.moveBy(2, cc.p(50,50));
-        var move2 = cc.rotateBy(1, -90, 0);
-        var seq = cc.spawn(move, move2);
-        helloLabel.runAction(seq);
-
-        // add "HelloWorld" splash screen"
-        this.sprite = new cc.Sprite(res.HelloWorld_png);
-        this.sprite.attr({
-            x: size.width / 2,
-            y: size.height / 2
-        });
-        this.addChild(this.sprite, 0);
+        // can be modified
 
         return true;
-    }
+    },
+
+    onEnter: function () {
+        var self = this;
+        cc.Node.prototype.onEnter.call(self);
+        self.schedule(self._startLoading, 0.1);
+    },
+    /**
+     * init with resources
+     * @param {Array} resources
+     * @param {Function|String} cb
+     * @param {Object} target
+     */
+    initWithResources: function (resources, cb, target) {
+        if(cc.isString(resources))
+            resources = [resources];
+        this.resources = resources || [];
+        this.cb = cb;
+        this.target = target;
+    },
+
+    _startLoading: function () {
+        var self = this;
+        self.unschedule(self._startLoading);
+        var res = self.resources;
+        cc.loader.load(res,
+            function (result, count, loadedCount) {
+                var percent = (loadedCount / count * 100) | 0;
+                percent = Math.min(percent, 100);
+                cc.log(percent);
+            }, function () {
+                if (self.cb)
+                    self.cb.call(self.target);
+            });
+    },
 });
 
-var HelloWorldScene = cc.Scene.extend({
-    onEnter:function () {
-        this._super();
-        var layer = new HelloWorldLayer();
-        this.addChild(layer);
+MyLoaderScene.preload = function(resources, cb, target){
+    var _cc = cc;
+    if(!_cc.myloaderScene) {
+        _cc.myloaderScene = new MyLoaderScene();
+        _cc.myloaderScene.init();
     }
-});
+    _cc.myloaderScene.initWithResources(resources, cb, target);
 
+    cc.director.runScene(_cc.myloaderScene);
+    return _cc.myloaderScene;
+};
