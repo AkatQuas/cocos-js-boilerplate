@@ -73,8 +73,72 @@ var quickNode = (function () {
             return _attr(_n, params);
         },
         label: function (params) {
-            var _n = new cc.LabelTTF(params.label, '', params.fz || 40);
+            params.label = '' + params.label;
+            var _n = new cc.LabelTTF('' + params.label, '', params.fz || 40);
             return _attr(_n, params);
         }
     };
 })();
+
+
+/*
+// copy to clipboard
+var save = function (e) {
+    e.clipboardData.setData('text/plain', cdk.value);
+    e.preventDefault();
+};
+document.addEventListener('copy', save);
+document.execCommand('copy');
+document.removeEventListener('copy', save);
+
+// in IOS, if you need copy, change the css in index.html
+
+// -webkit-user-select: none;  -> -webkit-user-select: text;
+
+// and then register the function
+
+
+window.myClipboard = (function (window, document, navigator) {
+    var textArea, copy;
+
+    function isOS() {
+        return navigator.userAgent.match(/ipad|iphone/i);
+    }
+
+    function createTextArea(text) {
+        textArea = document.createElement('textArea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+    }
+    function selectText() {
+        var range,
+            selection;
+
+        if (isOS()) {
+            range = document.createRange();
+            range.selectNodeContents(textArea);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            textArea.setSelectionRange(0, 999999);
+        } else {
+            textArea.select();
+        }
+    }
+
+    function copyToClipboard() {
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+        createTextArea(text);
+        selectText();
+        copyToClipboard();
+    };
+    return {
+        copy: copy
+    };
+})(window, document, navigator);
+
+*/

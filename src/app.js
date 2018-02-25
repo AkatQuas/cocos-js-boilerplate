@@ -17,6 +17,8 @@ var MyLoaderScene = cc.Scene.extend({
 
     onEnter: function () {
         var self = this;
+        self._super();
+        // make a loading scene and make the game start logic
         cc.Node.prototype.onEnter.call(self);
         self.schedule(self._startLoading, 0.1);
     },

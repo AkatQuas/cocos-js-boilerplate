@@ -4,19 +4,33 @@ A boilerplate on Cocos-JS, A short one with only the folder architecture, config
 
 ## IMPORTANT 
 
+**Blur Image on Android Browser.** [doc is here](http://blog.csdn.net/caonidayeheixiu8/article/details/71619062), [code is here](./snippets/DPR-responsive.js).
+
 Some small twists are needed if the project cann't run after `rsync`.
 
 `src/app.js` have overwirtten the class `cc.LoaderScene`, and after resource pre-loading, run the `HelloScene` which is located in `src/views/hello.scene.js`.
+
+It is a good idea to create a small scene to loading the resources and then show the `click to play` button.
 
 Don't forget to refer the js files in the `jsList` field in `project.json` in the root directory.
 
 Some useful snippets on using vanilla Cocos-2s-X-JS are located in `snippets` directory.
 
-- Filenaming Convention: lower case with hyphen delimiter, with type indication before extensions.
+- **File naming Convention**: lower case with hyphen delimiter, with type indication before extensions.
 
 - Writing the simple & eazy layer implementation in `*.scene.js` in simple scene
 
 - change the golbal config properly before run into the next scene
+
+- **MVC**,scene controll the game logic, set the variables and invoke the view effects on the layer, so the layer becomes the VIEW in MVC~
+
+- **Wechat Size**, support the window in wechat, the size should be 1080*1740
+
+- **Audio**, music -> `*.mp3`, effects -> `*.mp3`, 44100KHz, >= 92Kb, Monophony
+
+- **Random**, check [file](./src/utils/random.js)
+
+- **Modules** , check the `moduleConfig.js` in directory `frameworks/cocos2d-html5` and modify the `project.json` in the root folder.
 
 ## How to use this boilerplate
 

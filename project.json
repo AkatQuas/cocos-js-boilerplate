@@ -13,14 +13,12 @@
 
     "jsList" : [
         "src/config/game.js",
-        "src/resource.js",
         "src/utils/index.js",
+        "src/game-controller.js",
+        "src/resource.js",
 
         "src/app.js",
-        "src/game-controller.js",
-
         "src/hello.scene.js",
-
         "src/views/main/main.scene.js",
         "src/views/main/main.layer.js",
         "src/views/main/main.sprite.js",

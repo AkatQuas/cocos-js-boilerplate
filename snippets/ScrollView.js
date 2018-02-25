@@ -108,7 +108,7 @@ var HallMenusLayer = cc.Layer.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            // not necessary
+            // required !!!
             onTouchBegan: function (touch, event) {
                 var pos = touch.getLocation();
                 var target = event.getCurrentTarget();
@@ -132,7 +132,7 @@ var HallMenusLayer = cc.Layer.extend({
                     return false;
                 }
             },
-            // not necessary
+            // required !!!
             onTouchEnded: function (touch, event) {
                 var pos = touch.getLocation();
                 var target = event.getCurrentTarget();

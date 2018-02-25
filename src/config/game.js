@@ -6,44 +6,61 @@ var ENUMS = ENUMS || {};
 // evnvironment config
 ENV = (function () {
 
-    _ENV = 1 ? 'development' : 'production';
+    var mode = ['development', 'test', 'production'];
 
-    _ENV === 'development' ? (function () {
+    var _CUR = mode[2];
+
+    _CUR === mode[0] ? (function () {
         setInterval(function () {
             cc.log('beating, game not dead');
         }, 60000);
     })() : false;
-    return _ENV === 'development' ? {
-        GAME_ENV: _ENV,
+
+    var _conf = {};
+
+    _conf[mode[0]] = {
+        RUNTIME: _CUR,
         WSURL: 'ws://192.168.1.99:9001/ws',
-        HTTP_BASE: 'http://192.168.1.99:9000'
-    } : {
-            GAME_ENV: _ENV,
-            WSURL: 'ws://',
-            HTTP_BASE: '/api'
-        }
+        HTTP_BASE: 'http://192.168.1.99:8090/api'
+    };
+    _conf[mode[1]] = {
+        RUNTIME: _CUR,
+        WSURL: 'ws://tlbb.xuanxiangkeji.com:9001/ws',
+        HTTP_BASE: '/api'
+    };
+    _conf[mode[2]] = {
+        RUNTIME: _CUR,
+        WSURL: 'ws://w001.wx.wuhuqumei.com:9001/ws',
+        HTTP_BASE: '/api'
+    };
+
+    return _conf[_CUR];
 
 })();
-
 // enums something
 ENUMS.GAME_STATE = {
     // not playing state, check ranking page or after a round of game or before game to start
     IDLE: 0,
 
-    // singler playing, check with GAME_MODE(easy|normal)
-    SINGLE_PLAY: 1,
-
-    // double players playing, after waiting done
-    DOUBLE_PLAY: 2,
-
-    // waiting the opponent to receive the challenge
+    PLAYING: 1,
+    // waiting the opponent to receive the challenge, after join room, before ready
     WAITING: 3,
+
+    // ready, not waiting, not playing, about to start game
+    READY: 4
 };
 
 ENUMS.GAME_MODE = {
-    EASY: 0,
-    NORMAL: 1
-}
+    NULL: '0',
+    SINGLE: 'single',
+    DOUBLE: 'vs'
+};
+
+ENUMS.GAME_LEVEL = {
+    NULL: '0',
+    EASY: 'easy',
+    HARD: 'hard'
+};
 
 // global config, easy to read
 // cc.winSize may not exist before the GC, so is possible to config manually
@@ -66,4 +83,12 @@ GC.EFFECT_ON = false;
 
 GC.GAME_STATE = ENUMS.GAME_STATE.IDLE;
 
-GC.GAME_MODE = ENUMS.GAME_MODE.EASY;
+GC.GAME_MODE = ENUMS.GAME_MODE.NULL;
+
+GC.GAME_LEVEL = ENUMS.GAME_LEVEL.NULL;
+
+GC.GAME_ROOMNUMBER = -1;
+
+GC.PROFILE = {};
+
+GC.OPPONENT = {};
